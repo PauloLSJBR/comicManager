@@ -20,6 +20,14 @@ public class Exemplary implements Serializable {
     @ManyToOne
     private User user;
 
+    public Exemplary() {
+    }
+
+    public Exemplary(Comic comic, User user) {
+        this.comic = comic;
+        this.user = user;
+    }
+
     public Long getExemplaryId() {
         return exemplaryId;
     }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.representations.ComicResult;
+import org.zup.paulo.comicmanager.representations.UserRequest;
 import org.zup.paulo.comicmanager.services.UserService;
 
 import java.util.List;
@@ -54,10 +55,10 @@ public class UserController {
 
     @PostMapping
     public @ResponseBody
-    HttpEntity<User> create(@RequestBody User user) {
+    HttpEntity<User> create(@RequestBody UserRequest userRequest) {
 
-        User userN = service.create(user);
-        return ResponseEntity.ok(userN);
+        User user = service.create(new User(userRequest));
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping(value = "/{id}")

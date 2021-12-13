@@ -21,7 +21,7 @@ public class ComicResult implements Serializable {
     private String autores;
 
     @NotNull(message = "Preço é obrigatorio")
-    private BigDecimal preco;
+    private Float preco;
 
     private String descricao;
 
@@ -74,11 +74,11 @@ public class ComicResult implements Serializable {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
+    public Float getPreco() {
         return preco;
     }
 
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(Float preco) {
         this.preco = preco;
     }
 

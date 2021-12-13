@@ -7,4 +7,5 @@ import org.zup.paulo.comicmanager.domain.Comic;
 @Repository
 public interface ComicRepositoryJPA extends JpaRepository<Comic, Long> {
 
+    public Comic getByComicId(Long comicId);
 }

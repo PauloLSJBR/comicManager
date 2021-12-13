@@ -2,6 +2,7 @@ package org.zup.paulo.comicmanager.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.zup.paulo.comicmanager.domain.annotation.Cpf;
+import org.zup.paulo.comicmanager.representations.UserRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -36,6 +37,24 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "Data de nascimento é obrigatoria")
     private Date dataNasc;
+
+    public User() {
+    }
+
+    public User(Long id, String nome, String email, String cpf, Date dataNasc) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+    }
+
+    public User(UserRequest userRequest) {
+        this.nome = userRequest.getNome();
+        this.email = userRequest.getEmail();
+        this.cpf = userRequest.getCpf();
+        this.dataNasc =userRequest.getDataNasc();
+    }
 
     public Long getId() {
         return id;

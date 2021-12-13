@@ -71,7 +71,7 @@ public class UserService implements UserServiceAPI {
         for(Exemplary exemplary: exemplaries) {
             ComicResult comicResult = new ComicResult(exemplary.getComic());
             if(ifDescont(comicResult.getIsbn())) {
-                comicResult.setPreco(comicResult.getPreco().multiply(BigDecimal.valueOf(0.9)));
+                comicResult.setPreco(comicResult.getPreco()*0.9f);
                 comicResult.setDescontoApl(true);
             }
             comicResults.add(comicResult);
@@ -82,28 +82,31 @@ public class UserService implements UserServiceAPI {
 
     private Boolean ifDescont(String isbn){
 
-        char ultch = isbn.charAt(isbn.length()-1);
-        LocalDate todaysDate = LocalDate.now();
+        if(!isbn.isBlank()) {
+            char ultch = isbn.charAt(isbn.length() - 1);
+            LocalDate todaysDate = LocalDate.now();
 
-        switch (todaysDate.getDayOfWeek()) {
-            case MONDAY:{
-                return (ultch == '0' || ultch == '1');
+            switch (todaysDate.getDayOfWeek()) {
+                case MONDAY: {
+                    return (ultch == '0' || ultch == '1');
+                }
+                case TUESDAY: {
+                    return (ultch == '2' || ultch == '3');
+                }
+                case WEDNESDAY: {
+                    return (ultch == '4' || ultch == '5');
+                }
+                case THURSDAY: {
+                    return (ultch == '6' || ultch == '7');
+                }
+                case FRIDAY: {
+                    return (ultch == '8' || ultch == '9');
+                }
+                default:
+                    return false;
             }
-            case TUESDAY:{
-                return (ultch == '2' || ultch == '3');
-            }
-            case WEDNESDAY:{
-                return (ultch == '4' || ultch == '5');
-            }
-            case THURSDAY:{
-                return (ultch == '6' || ultch == '7');
-            }
-            case FRIDAY:{
-                return (ultch == '8' || ultch == '9');
-            }
-            default :
-                return false;
         }
+        return false;
     }
 }
 

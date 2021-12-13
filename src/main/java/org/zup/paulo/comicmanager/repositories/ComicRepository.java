@@ -23,7 +23,7 @@ public class ComicRepository {
     }
 
     public Comic findById(Long id) {
-        return repositoryJPA.findById(id).get();
+        return repositoryJPA.getByComicId(id);
     }
 
     public Comic save(Comic comic) {

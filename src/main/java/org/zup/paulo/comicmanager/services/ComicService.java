@@ -44,9 +44,17 @@ public class ComicService implements ComicServiceAPI {
     @Override
     @Transactional
     public Comic create(Comic comic) {
-
         return repositoryJPA.save(comic);
     }
+
+    @Transactional
+    public Comic createMarvel(Comic comic) {
+
+        Comic comicM = serviceMarvel.findComic(comic.getComicId());
+
+        return repositoryJPA.save(comicM);
+    }
+
 
     @Override
     @Transactional

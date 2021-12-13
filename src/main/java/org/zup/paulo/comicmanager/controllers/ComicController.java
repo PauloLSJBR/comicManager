@@ -1,5 +1,6 @@
 package org.zup.paulo.comicmanager.controllers;
 
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,14 @@ public class ComicController {
 
         Exemplary exemplary = exemplaryService.cadastra(comicRequest);
         return ResponseEntity.ok(exemplary);
+    }
+
+    @PostMapping("/post")
+    public @ResponseBody
+    HttpEntity<Object> save(@RequestBody Comic comic) {
+
+        comic = service.createMarvel(comic);
+        return ResponseEntity.ok(comic);
     }
 
     @PutMapping(value = "/{comicId}")

@@ -3,6 +3,7 @@ package org.zup.paulo.comicmanager.repositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.zup.paulo.comicmanager.domain.Exemplary;
+import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
 
 import javax.sql.DataSource;
@@ -22,11 +23,7 @@ public class ExemplaryRepository {
         return repositoryJPA.findAll();
     }
 
-    public Exemplary findById(Long id) {
-        return repositoryJPA.findById(id).get();
-    }
-
-    public Exemplary save(Exemplary exemplary) {
+     public Exemplary save(Exemplary exemplary) {
         return repositoryJPA.save(exemplary);
     }
 

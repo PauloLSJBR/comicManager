@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class ExemplaryService implements ExemplaryServiceAPI {
 
     @Autowired
-    private ExemplaryRepositoryJPA repository;
+    private ExemplaryRepositoryJPA repositoryJPA;
 
     @Autowired
     private ComicRepository comicRepository;
@@ -35,20 +35,22 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     @Transactional
     public Exemplary cadastra(ComicRequest comicRequest) {
 
-        User user = userRepository.findById(comicRequest.getUserId());
+        try {
+            User user = userRepository.findById(comicRequest.getUserId());
 
-        Comic comic = comicRepository.findById(comicRequest.getComicId());
+            Comic comic = comicRepository.findById(comicRequest.getComicId());
 
-        if(comic == null) {
-            comic = serviceMarvel.findComic(comicRequest.getComicId());
+            if (comic == null) {
+                comic = serviceMarvel.findComic(comicRequest.getComicId());
+                comicRepository.save(comic);
+            }
+
+            Exemplary exemplary = new Exemplary(comic, user);
+
+            repositoryJPA.save(exemplary);
+        }catch (){
 
         }
-
-        Exemplary exemplary = new Exemplary();
-
-        exemplary.setComic(comic);
-        exemplary.setUser(user);
-        repository.save(exemplary);
 
         return exemplary;
     }
@@ -56,7 +58,7 @@ public class ExemplaryService implements ExemplaryServiceAPI {
         @Transactional(readOnly = true)
     public List<Comic> getByUser(Long userId){
 
-        List<Exemplary> exemplaries = repository.findByUser(new UserBuilder().id(userId).build());
+        List<Exemplary> exemplaries = repositoryJPA.findByUser(new UserBuilder().id(userId).build());
 
         return exemplaries.stream().map(e -> e.getComic()).collect(Collectors.toList());
     }
@@ -65,7 +67,7 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     public Exemplary get(Long id){
 
         try {
-            Exemplary exemplary = repository.findById(id).get();
+            Exemplary exemplary = repositoryJPA.findById(id).get();
             return exemplary;
         } catch (Exception ex) {
             throw new ExemplaryNotFoundException(String.format("Exemplar não existe com esse id: %s ", id));
@@ -76,26 +78,26 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     @Transactional(readOnly = true)
     public List<Exemplary> findAll() {
 
-        return repository.findAll();
+        return repositoryJPA.findAll();
     }
 
     @Override
     @Transactional(readOnly = false)
     public Exemplary create(Exemplary exemplary) {
 
-        return repository.save(exemplary);
+        return repositoryJPA.save(exemplary);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void update(Exemplary exemplary) {
-        repository.save(exemplary);
+        repositoryJPA.save(exemplary);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void remove(Long id) {
-        repository.deleteById(id);
+        repositoryJPA.deleteById(id);
     }
 
  }
