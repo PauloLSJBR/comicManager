@@ -9,6 +9,7 @@ import org.zup.paulo.comicmanager.representations.ComicResult;
 import org.zup.paulo.comicmanager.representations.UserRequest;
 import org.zup.paulo.comicmanager.services.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -55,16 +56,16 @@ public class UserController {
 
     @PostMapping
     public @ResponseBody
-    HttpEntity<User> create(@RequestBody UserRequest userRequest) {
+    HttpEntity<Object> create(@RequestBody @Valid UserRequest userRequest) {
 
         User user = service.create(new User(userRequest));
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(value = "/{id}")
     public @ResponseBody
     HttpEntity<Object> update(@PathVariable(name = "id") Long id,
-                             @RequestBody User user) {
+                              @RequestBody @Valid User user) {
 
         user.setId(id);
         service.update(user);

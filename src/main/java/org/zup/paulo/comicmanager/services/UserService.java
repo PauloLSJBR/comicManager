@@ -32,7 +32,7 @@ public class UserService implements UserServiceAPI {
             User user = repositoryJPA.findById(id).get();
             return user;
         } catch (Exception ex) {
-            throw new UserNotFoundException(String.format("Banda não existe com esse id: %s ", id));
+            throw new UserNotFoundException(String.format("User não existe com esse id: %s ", id));
         }
     }
 

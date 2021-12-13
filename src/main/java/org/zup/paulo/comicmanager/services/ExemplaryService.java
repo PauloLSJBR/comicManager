@@ -48,11 +48,12 @@ public class ExemplaryService implements ExemplaryServiceAPI {
             Exemplary exemplary = new Exemplary(comic, user);
 
             repositoryJPA.save(exemplary);
-        }catch (){
+            return exemplary;
 
+        }catch (Exception ex){
+            throw new ExemplaryNotFoundException(String.format("Erro ao tentar criar um exemplar "));
         }
 
-        return exemplary;
     }
 
         @Transactional(readOnly = true)

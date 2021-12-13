@@ -1,8 +1,11 @@
 package org.zup.paulo.comicmanager.representations;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.zup.paulo.comicmanager.domain.annotation.Cpf;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,8 +27,9 @@ public class UserRequest implements Serializable {
     @Cpf(message = "CPF Invalido")
     private String cpf;
 
-    //    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     @NotNull(message = "Data de nascimento é obrigatoria")
     private Date dataNasc;
 
