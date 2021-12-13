@@ -22,8 +22,8 @@ public class ComicRepository {
         return repositoryJPA.findAll();
     }
 
-    public Optional<Comic> findById(Long id) {
-        return repositoryJPA.findById(id);
+    public Comic findById(Long id) {
+        return repositoryJPA.findById(id).get();
     }
 
     public Comic save(Comic comic) {

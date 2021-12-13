@@ -22,8 +22,8 @@ public class UserRepository {
         return repositoryJPA.findAll();
     }
 
-    public Optional<User> findById(Long id) {
-        return repositoryJPA.findById(id);
+    public User findById(Long id) {
+        return repositoryJPA.findById(id).get();
     }
 
     public User save(User user) {

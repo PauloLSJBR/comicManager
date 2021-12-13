@@ -1,6 +1,6 @@
-package org.zup.paulo.comicsmanager.services.interfaces;
+package org.zup.paulo.comicmanager.services.interfaces;
 
-import org.zup.paulo.comicsmanager.domain.Exemplary;
+import org.zup.paulo.comicmanager.domain.Exemplary;
 
 import java.util.List;
 

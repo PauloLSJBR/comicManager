@@ -22,8 +22,8 @@ public class ExemplaryRepository {
         return repositoryJPA.findAll();
     }
 
-    public Optional<Exemplary> findById(Long id) {
-        return repositoryJPA.findById(id);
+    public Exemplary findById(Long id) {
+        return repositoryJPA.findById(id).get();
     }
 
     public Exemplary save(Exemplary exemplary) {

@@ -1,15 +1,13 @@
-package org.zup.paulo.comicsmanager.services;
+package org.zup.paulo.comicmanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zup.paulo.comicsmanager.domain.Comic;
-import org.zup.paulo.comicsmanager.exceptions.ComicNotFoundException;
-import org.zup.paulo.comicsmanager.repositories.ExemplaryRepository;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.ComicRepositoryJPA;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
-import org.zup.paulo.comicsmanager.representations.ComicRequest;
-import org.zup.paulo.comicsmanager.services.interfaces.ComicServiceAPI;
+import org.zup.paulo.comicmanager.domain.Comic;
+import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
+import org.zup.paulo.comicmanager.repositories.ExemplaryRepository;
+import org.zup.paulo.comicmanager.repositories.interfacesJPA.ComicRepositoryJPA;
+import org.zup.paulo.comicmanager.services.interfaces.ComicServiceAPI;
 
 import java.util.List;
 

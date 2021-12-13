@@ -1,18 +1,18 @@
-package org.zup.paulo.comicsmanager.services;
+package org.zup.paulo.comicmanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zup.paulo.comicsmanager.domain.Comic;
-import org.zup.paulo.comicsmanager.domain.Exemplary;
-import org.zup.paulo.comicsmanager.domain.User;
-import org.zup.paulo.comicsmanager.domain.builders.UserBuilder;
-import org.zup.paulo.comicsmanager.exceptions.ExemplaryNotFoundException;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.ComicRepositoryJPA;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.UserRepositoryJPA;
-import org.zup.paulo.comicsmanager.representations.ComicRequest;
-import org.zup.paulo.comicsmanager.services.interfaces.ExemplaryServiceAPI;
+import org.zup.paulo.comicmanager.domain.Comic;
+import org.zup.paulo.comicmanager.domain.Exemplary;
+import org.zup.paulo.comicmanager.domain.User;
+import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
+import org.zup.paulo.comicmanager.exceptions.ExemplaryNotFoundException;
+import org.zup.paulo.comicmanager.repositories.ComicRepository;
+import org.zup.paulo.comicmanager.repositories.UserRepository;
+import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
+import org.zup.paulo.comicmanager.representations.ComicRequest;
+import org.zup.paulo.comicmanager.services.interfaces.ExemplaryServiceAPI;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,21 +24,20 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     private ExemplaryRepositoryJPA repository;
 
     @Autowired
-    private ComicRepositoryJPA comicRepository;
+    private ComicRepository comicRepository;
 
     @Autowired
-    private UserRepositoryJPA userRpository;
+    private UserRepository userRepository;
 
     @Autowired
     private MarvelService serviceMarvel;
 
-
     @Transactional
     public Exemplary cadastra(ComicRequest comicRequest) {
 
-        User user = userRpository.getById(comicRequest.getUserId());
+        User user = userRepository.findById(comicRequest.getUserId());
 
-        Comic comic = comicRepository.getById(comicRequest.getComicId());
+        Comic comic = comicRepository.findById(comicRequest.getComicId());
 
         if(comic == null) {
             comic = serviceMarvel.findComic(comicRequest.getComicId());

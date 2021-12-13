@@ -1,16 +1,16 @@
-package org.zup.paulo.comicsmanager.services;
+package org.zup.paulo.comicmanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zup.paulo.comicsmanager.domain.Exemplary;
-import org.zup.paulo.comicsmanager.domain.User;
-import org.zup.paulo.comicsmanager.domain.builders.UserBuilder;
-import org.zup.paulo.comicsmanager.exceptions.UserNotFoundException;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
-import org.zup.paulo.comicsmanager.repositories.interfacesJPA.UserRepositoryJPA;
-import org.zup.paulo.comicsmanager.representations.ComicResult;
-import org.zup.paulo.comicsmanager.services.interfaces.UserServiceAPI;
+import org.zup.paulo.comicmanager.domain.Exemplary;
+import org.zup.paulo.comicmanager.domain.User;
+import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
+import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
+import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
+import org.zup.paulo.comicmanager.repositories.interfacesJPA.UserRepositoryJPA;
+import org.zup.paulo.comicmanager.representations.ComicResult;
+import org.zup.paulo.comicmanager.services.interfaces.UserServiceAPI;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

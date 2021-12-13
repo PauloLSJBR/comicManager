@@ -1,12 +1,12 @@
-package org.zup.paulo.comicsmanager.services;
+package org.zup.paulo.comicmanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.zup.paulo.comicsmanager.domain.Comic;
-import org.zup.paulo.comicsmanager.exceptions.ComicNotFoundException;
-import org.zup.paulo.comicsmanager.representations.response.ComicsResponse;
-import org.zup.paulo.comicsmanager.representations.response.ResultsResponse;
-import org.zup.paulo.comicsmanager.restclient.MarvelComicsClient;
+import org.zup.paulo.comicmanager.domain.Comic;
+import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
+import org.zup.paulo.comicmanager.representations.response.ComicsResponse;
+import org.zup.paulo.comicmanager.representations.response.ResultsResponse;
+import org.zup.paulo.comicmanager.restclient.MarvelComicsClient;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.math.BigDecimal;

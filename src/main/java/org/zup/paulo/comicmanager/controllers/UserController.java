@@ -1,12 +1,12 @@
-package org.zup.paulo.comicsmanager.controllers;
+package org.zup.paulo.comicmanager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zup.paulo.comicsmanager.domain.User;
-import org.zup.paulo.comicsmanager.representations.ComicResult;
-import org.zup.paulo.comicsmanager.services.UserService;
+import org.zup.paulo.comicmanager.domain.User;
+import org.zup.paulo.comicmanager.representations.ComicResult;
+import org.zup.paulo.comicmanager.services.UserService;
 
 import java.util.List;
 
