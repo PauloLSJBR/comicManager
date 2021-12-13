@@ -1,6 +1,6 @@
 package org.zup.paulo.comicmanager.domain.builders;
 
-import org.zup.paulo.comicsmanager.domain.User;
+import org.zup.paulo.comicmanager.domain.User;
 
 import java.util.Date;
 

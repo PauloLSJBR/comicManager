@@ -1,7 +1,7 @@
 package org.zup.paulo.comicmanager.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.zup.paulo.comicsmanager.domain.annotation.Cpf;
+import org.zup.paulo.comicmanager.domain.annotation.Cpf;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
