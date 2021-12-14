@@ -8,8 +8,6 @@ public class ErrorDetails {
     private String url;
     private String message;
 
-    //gets e sets
-
 
     public String getTitle() {
         return title;

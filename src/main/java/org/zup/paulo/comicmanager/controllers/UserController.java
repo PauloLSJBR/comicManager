@@ -5,8 +5,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zup.paulo.comicmanager.domain.User;
-import org.zup.paulo.comicmanager.representations.ComicResult;
-import org.zup.paulo.comicmanager.representations.UserRequest;
+import org.zup.paulo.comicmanager.domain.representations.ComicResult;
+import org.zup.paulo.comicmanager.domain.representations.UserRequest;
 import org.zup.paulo.comicmanager.services.UserService;
 
 import javax.validation.Valid;

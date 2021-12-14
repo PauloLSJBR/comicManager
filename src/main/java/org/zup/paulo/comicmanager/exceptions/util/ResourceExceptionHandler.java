@@ -2,14 +2,18 @@ package org.zup.paulo.comicmanager.exceptions.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
+import org.zup.paulo.comicmanager.exceptions.EmailOrCpfJaCadastradoExcetion;
 import org.zup.paulo.comicmanager.exceptions.ExemplaryNotFoundException;
 import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -50,30 +54,38 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(EmailOrCpfJaCadastradoExcetion.class)
+    public ResponseEntity<ErrorDetails> handlerExemplaryException(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
+        e.printStackTrace();
+        ErrorDetails error = new ErrorDetails();
+        error.setStatus(422l);
+        error.setTitle("Exite Mail ou CPF ja cadastrado");
+        error.setUrl("http://erros.teste.com/404");
+        error.setTimestamp(System.currentTimeMillis());
+        error.setMessage(e.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDetails> handlerExemplaryException(MethodArgumentNotValidException e, HttpServletRequest request) {
-        e.printStackTrace();
+//        e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
         error.setStatus(400l);
         error.setTitle("Validation exception.");
         error.setUrl("http://erros.teste.com/400");
         error.setTimestamp(System.currentTimeMillis());
-        error.setMessage(e. getLocalizedMessage());
+
+        String msnErro = "";
+        for(ObjectError err : e.getBindingResult().getAllErrors()) {
+            String fieldName = ((FieldError) err).getField();
+            String errorMessage = err.getDefaultMessage();
+            msnErro = errorMessage + ", " + msnErro;
+            System.out.println("Nome = "+fieldName+" msnErr = " + errorMessage);
+        }
+        error.setMessage(msnErro);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
 }
-
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public Map<String, String> handleValidationExceptions(
-//            MethodArgumentNotValidException ex) {
-//        Map<String, String> errors = new HashMap<>();
-//        ex.getBindingResult().getAllErrors().forEach((error) -> {
-//            String fieldName = ((FieldError) error).getField();
-//            String errorMessage = error.getDefaultMessage();
-//            errors.put(fieldName, errorMessage);
-//        });
-//        return errors;
-//    }
 

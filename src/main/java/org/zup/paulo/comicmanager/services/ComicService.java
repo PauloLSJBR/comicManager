@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zup.paulo.comicmanager.domain.Comic;
+import org.zup.paulo.comicmanager.domain.representations.ComicUpdate;
 import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
 import org.zup.paulo.comicmanager.repositories.ExemplaryRepository;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ComicRepositoryJPA;
@@ -23,6 +24,7 @@ public class ComicService implements ComicServiceAPI {
     @Autowired
     private ExemplaryRepository examplaryRepository;
 
+    @Override
     @Transactional(readOnly = true)
     public Comic get(Long id){
 
@@ -44,22 +46,14 @@ public class ComicService implements ComicServiceAPI {
     @Override
     @Transactional
     public Comic create(Comic comic) {
+
         return repositoryJPA.save(comic);
     }
 
-    @Transactional
-    public Comic createMarvel(Comic comic) {
-
-        Comic comicM = serviceMarvel.findComic(comic.getComicId());
-
-        return repositoryJPA.save(comicM);
-    }
-
-
     @Override
     @Transactional
-    public void update(Comic comic) {
-        repositoryJPA.save(comic);
+    public void update(ComicUpdate comicUpdate) {
+        repositoryJPA.save(new Comic(comicUpdate));
     }
 
     @Override

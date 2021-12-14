@@ -7,7 +7,6 @@ import org.zup.paulo.comicmanager.repositories.interfacesJPA.UserRepositoryJPA;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -34,6 +33,10 @@ public class UserRepository {
 
     public void deleteById(Long id) {
         repositoryJPA.deleteById(id);
+    }
+
+    public User findUserByEmailAndCpf(String email, String cpf){
+        return findUserByEmailAndCpf(email, cpf);
     }
 
 }

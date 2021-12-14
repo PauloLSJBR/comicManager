@@ -1,6 +1,5 @@
 package org.zup.paulo.comicmanager.controllers;
 
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.zup.paulo.comicmanager.domain.Comic;
 import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
-import org.zup.paulo.comicmanager.representations.ComicRequest;
+import org.zup.paulo.comicmanager.domain.representations.ComicUpdate;
+import org.zup.paulo.comicmanager.domain.representations.ExemplaryRequest;
 import org.zup.paulo.comicmanager.services.ComicService;
 import org.zup.paulo.comicmanager.services.ExemplaryService;
 
@@ -38,37 +38,37 @@ public class ComicController {
         return ResponseEntity.ok(comics);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{comicId}")
     public @ResponseBody
-    HttpEntity<Comic> get(@PathVariable(name = "id") Long id) {
+    HttpEntity<Comic> get(@PathVariable(name = "comicId") Long id) {
 
         Comic comic = service.get(id);
         return ResponseEntity.ok(comic);
     }
 
-    @PostMapping
+    @PostMapping("/exemplary")
     public @ResponseBody
-    HttpEntity<Object> create(@RequestBody ComicRequest comicRequest) {
+    HttpEntity<Object> createExemplary(@RequestBody ExemplaryRequest exemplaryRequest) {
 
-        Exemplary exemplary = exemplaryService.cadastra(comicRequest);
+        Exemplary exemplary = exemplaryService.cadastra(exemplaryRequest);
         return ResponseEntity.ok(exemplary);
     }
 
-    @PostMapping("/post")
+    @PostMapping
     public @ResponseBody
     HttpEntity<Object> save(@RequestBody Comic comic) {
 
-        comic = service.createMarvel(comic);
+        comic = service.create(comic);
         return ResponseEntity.ok(comic);
     }
 
     @PutMapping(value = "/{comicId}")
     public @ResponseBody
     HttpEntity<Object> update(@PathVariable(name = "comicId") Long comicId,
-                              @RequestBody Comic comic) {
+                              @RequestBody ComicUpdate comicUpdate) {
 
-        comic.setComicId(comicId);
-        service.update(comic);
+        comicUpdate.setComicId(comicId);
+        service.update(comicUpdate);
         return ResponseEntity.ok().build();
     }
 

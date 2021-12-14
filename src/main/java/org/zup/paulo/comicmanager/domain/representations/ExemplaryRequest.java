@@ -1,8 +1,8 @@
-package org.zup.paulo.comicmanager.representations;
+package org.zup.paulo.comicmanager.domain.representations;
 
 import javax.validation.constraints.NotNull;
 
-public class ComicRequest {
+public class ExemplaryRequest {
 
     @NotNull(message =  "A codigo de identificação e obrigatorio")
     private Long comicId;

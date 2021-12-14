@@ -1,7 +1,6 @@
-package org.zup.paulo.comicmanager.representations;
+package org.zup.paulo.comicmanager.domain.representations;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.zup.paulo.comicmanager.domain.annotation.Cpf;
 
 import javax.persistence.Temporal;

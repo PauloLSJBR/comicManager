@@ -1,29 +1,22 @@
-package org.zup.paulo.comicmanager.representations;
+package org.zup.paulo.comicmanager.domain.representations;
 
 import org.zup.paulo.comicmanager.domain.Comic;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
-public class ComicResult implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ComicResult {
 
     private Long ComicId;
 
-    @NotBlank(message = "Titulo é obrigatorio")
-    private String título;
+    private String title;
 
-    @NotBlank(message = "Autores é obrigatorio")
-    private String autores;
+    private String creators;
 
-    @NotNull(message = "Preço é obrigatorio")
-    private Float preco;
+    private Float price;
 
-    private String descricao;
+    private String description;
 
     private String isbn;
 
@@ -34,10 +27,10 @@ public class ComicResult implements Serializable {
 
     public ComicResult(Comic comic) {
         this.ComicId = comic.getComicId();
-        this.título = comic.getTítulo();
-        this.autores = comic.getAutores();
-        this.preco = comic.getPreco();
-        this.descricao = comic.getDescricao();
+        this.title = comic.getTitle();
+        this.creators = comic.getCreators();
+        this.price = comic.getPrice();
+        this.description = comic.getDescription();
         this.isbn = comic.getIsbn();
     }
 
@@ -50,36 +43,36 @@ public class ComicResult implements Serializable {
         ComicId = comicId;
     }
 
-    public String getTítulo() {
-        return título;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTítulo(String título) {
-        this.título = título;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getAutores() {
-        return autores;
+    public String getCreators() {
+        return creators;
     }
 
-    public void setAutores(String autores) {
-        this.autores = autores;
+    public void setCreators(String creators) {
+        this.creators = creators;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Float getPreco() {
-        return preco;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setPreco(Float preco) {
-        this.preco = preco;
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public String getIsbn() {
@@ -115,10 +108,10 @@ public class ComicResult implements Serializable {
     public String toString() {
         return "ComicResult{" +
                 "ComicId=" + ComicId +
-                ", título='" + título + '\'' +
-                ", autores='" + autores + '\'' +
-                ", preco=" + preco +
-                ", descricao='" + descricao + '\'' +
+                ", título='" + title + '\'' +
+                ", autores='" + creators + '\'' +
+                ", preco=" + price +
+                ", descricao='" + description + '\'' +
                 ", isbn='" + isbn + '\'' +
                 ", descontoApl=" + descontoApl +
                 '}';

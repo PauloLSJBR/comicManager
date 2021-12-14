@@ -1,4 +1,4 @@
-package org.zup.paulo.comicmanager.representations.response;
+package org.zup.paulo.comicmanager.restclient.response;
 
 public class CreatorSummary {
 

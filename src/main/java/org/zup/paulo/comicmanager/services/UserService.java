@@ -6,13 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
+import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
 import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
+import org.zup.paulo.comicmanager.repositories.UserRepository;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
-import org.zup.paulo.comicmanager.repositories.interfacesJPA.UserRepositoryJPA;
-import org.zup.paulo.comicmanager.representations.ComicResult;
+import org.zup.paulo.comicmanager.domain.representations.ComicResult;
 import org.zup.paulo.comicmanager.services.interfaces.UserServiceAPI;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -20,16 +20,16 @@ import java.util.*;
 public class UserService implements UserServiceAPI {
 
     @Autowired
-    private UserRepositoryJPA repositoryJPA;
+    private UserRepository userRepository;
 
     @Autowired
-    private ExemplaryRepositoryJPA exemplaryReoository;
+    private ExemplaryRepositoryJPA exemplaryRepository;
 
     @Transactional(readOnly = true)
     public User get(Long id){
 
         try {
-            User user = repositoryJPA.findById(id).get();
+            User user = userRepository.findById(id);
             return user;
         } catch (Exception ex) {
             throw new UserNotFoundException(String.format("User não existe com esse id: %s ", id));
@@ -40,38 +40,43 @@ public class UserService implements UserServiceAPI {
     @Transactional(readOnly = true)
     public List<User> findAll() {
 
-        return repositoryJPA.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = false)
     public User create(User user) {
 
-        return repositoryJPA.save(user);
+        User userEmailOrCpf = userRepository.findUserByEmailAndCpf(user.getEmail(), user.getCpf());
+        if(userEmailOrCpf != null){
+            throw new UserNotFoundException("Cpf ou email ja cadastrado");
+        }
+        return userRepository.save(user);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void update(User user) {
-        repositoryJPA.save(user);
+        userRepository.save(user);
     }
 
     @Override
     @Transactional(readOnly = false)
     public void remove(Long id) {
-        repositoryJPA.deleteById(id);
+        userRepository.deleteById(id);
     }
 
+    @Override
     @Transactional()
     public List<ComicResult> findComics(Long userId) {
 
-        List<Exemplary> exemplaries = exemplaryReoository.findByUser(new UserBuilder().id(userId).build());
+        List<Exemplary> exemplaries = exemplaryRepository.findByUser(new UserBuilder().id(userId).build());
 
         List<ComicResult> comicResults = new ArrayList<ComicResult>();
         for(Exemplary exemplary: exemplaries) {
             ComicResult comicResult = new ComicResult(exemplary.getComic());
             if(ifDescont(comicResult.getIsbn())) {
-                comicResult.setPreco(comicResult.getPreco()*0.9f);
+                comicResult.setPrice(comicResult.getPrice()*0.9f);
                 comicResult.setDescontoApl(true);
             }
             comicResults.add(comicResult);

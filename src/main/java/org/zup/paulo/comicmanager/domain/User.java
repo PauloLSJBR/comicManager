@@ -1,9 +1,8 @@
 package org.zup.paulo.comicmanager.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.zup.paulo.comicmanager.domain.annotation.Cpf;
-import org.zup.paulo.comicmanager.representations.UserRequest;
+import org.zup.paulo.comicmanager.domain.representations.UserRequest;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -35,8 +34,6 @@ public class User implements Serializable {
     private String cpf;
 
     @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull(message = "Data de nascimento é obrigatoria")
     private Date dataNasc;
 

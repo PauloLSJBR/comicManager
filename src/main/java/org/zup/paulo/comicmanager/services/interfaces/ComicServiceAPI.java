@@ -1,6 +1,7 @@
 package org.zup.paulo.comicmanager.services.interfaces;
 
 import org.zup.paulo.comicmanager.domain.Comic;
+import org.zup.paulo.comicmanager.domain.representations.ComicUpdate;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface ComicServiceAPI {
 
     public Comic create(Comic comic);
 
-    public void update(Comic comic);
+    public void update(ComicUpdate comicUpdate);
 
     public void remove(Long id);
 }

@@ -1,49 +1,22 @@
-package org.zup.paulo.comicmanager.domain;
+package org.zup.paulo.comicmanager.domain.representations;
 
-import org.zup.paulo.comicmanager.domain.representations.ComicUpdate;
+import org.zup.paulo.comicmanager.domain.Comic;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name="comic")
-public class Comic implements Serializable {
+public class ComicUpdate {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
     private Long comicId;
 
-    @NotBlank(message = "Titulo é obrigatorio")
     private String title;
 
-    @NotBlank(message = "Autores é obrigatorio")
     private String creators;
 
-    @NotNull(message = "Preço é obrigatorio")
     private Float price;
 
-    @NotBlank(message = "ISBN é obrigatorio")
     private String isbn;
 
     private String description;
-
-    public Comic() {
-    }
-
-    public Comic(ComicUpdate comicUpdate) {
-        this.comicId = comicUpdate.getComicId();
-        this.title = comicUpdate.getTitle();
-        this.creators = comicUpdate.getCreators();
-        this.price = comicUpdate.getPrice();
-        this.isbn = comicUpdate.getIsbn();
-        this.description = comicUpdate.getDescription();
-    }
 
     public Long getComicId() {
         return comicId;
@@ -118,3 +91,4 @@ public class Comic implements Serializable {
                 '}';
     }
 }
+

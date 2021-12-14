@@ -5,16 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zup.paulo.comicmanager.domain.Comic;
 import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
-import org.zup.paulo.comicmanager.repositories.ComicRepository;
-import org.zup.paulo.comicmanager.representations.response.ComicsResponse;
-import org.zup.paulo.comicmanager.representations.response.CreatorSummary;
-import org.zup.paulo.comicmanager.representations.response.ResultsResponse;
+import org.zup.paulo.comicmanager.restclient.response.ComicsResponse;
+import org.zup.paulo.comicmanager.restclient.response.CreatorSummary;
+import org.zup.paulo.comicmanager.restclient.response.ResultsResponse;
 import org.zup.paulo.comicmanager.restclient.MarvelComicsClient;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class MarvelService {
@@ -38,14 +35,19 @@ public class MarvelService {
             ResultsResponse result = response.getData().getResults().get(0);
             Comic comic = new Comic();
             comic.setComicId(result.getId());
-            comic.setTítulo(result.getTitle());
-            String autores = "";
-            for(CreatorSummary summary: result.getCreators().getItems()){
-                autores = summary.getName() + ", " + autores;
+            comic.setTitle(result.getTitle());
+            if(!result.getCreators().getItems().isEmpty()) {
+                String creators = result.getCreators().getItems().get(0).getName();
+                for (CreatorSummary summary : result.getCreators().getItems()) {
+                    creators = creators + ", " + summary.getName();
+                    ;
+                }
+                comic.setCreators(creators);
+            } else {
+                throw new ComicNotFoundException("Creators não presentes na APi Marvel");
             }
-            comic.setAutores(autores);
-            comic.setPreco(result.getPrices().get(0).getPrice());
-            comic.setDescricao(result.getDescription());
+            comic.setPrice(result.getPrices().get(0).getPrice());
+            comic.setDescription(result.getDescription());
             comic.setIsbn(result.getIsbn());
 
             return comic;

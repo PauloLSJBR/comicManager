@@ -11,7 +11,7 @@ import org.zup.paulo.comicmanager.exceptions.ExemplaryNotFoundException;
 import org.zup.paulo.comicmanager.repositories.ComicRepository;
 import org.zup.paulo.comicmanager.repositories.UserRepository;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
-import org.zup.paulo.comicmanager.representations.ComicRequest;
+import org.zup.paulo.comicmanager.domain.representations.ExemplaryRequest;
 import org.zup.paulo.comicmanager.services.interfaces.ExemplaryServiceAPI;
 
 import java.util.List;
@@ -33,15 +33,15 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     private MarvelService serviceMarvel;
 
     @Transactional
-    public Exemplary cadastra(ComicRequest comicRequest) {
+    public Exemplary cadastra(ExemplaryRequest exemplaryRequest) {
 
         try {
-            User user = userRepository.findById(comicRequest.getUserId());
+            User user = userRepository.findById(exemplaryRequest.getUserId());
 
-            Comic comic = comicRepository.findById(comicRequest.getComicId());
+            Comic comic = comicRepository.findById(exemplaryRequest.getComicId());
 
             if (comic == null) {
-                comic = serviceMarvel.findComic(comicRequest.getComicId());
+                comic = serviceMarvel.findComic(exemplaryRequest.getComicId());
                 comicRepository.save(comic);
             }
 
