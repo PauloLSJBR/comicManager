@@ -59,7 +59,7 @@ public class UserController {
     HttpEntity<Object> create(@RequestBody @Valid UserRequest userRequest) {
 
         User user = service.create(new User(userRequest));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(user);
     }
 
     @PutMapping(value = "/{id}")

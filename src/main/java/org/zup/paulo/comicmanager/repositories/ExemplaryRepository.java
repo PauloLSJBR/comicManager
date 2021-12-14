@@ -23,7 +23,7 @@ public class ExemplaryRepository {
         return repositoryJPA.findAll();
     }
 
-     public Exemplary save(Exemplary exemplary) {
+    public Exemplary save(Exemplary exemplary) {
         return repositoryJPA.save(exemplary);
     }
 

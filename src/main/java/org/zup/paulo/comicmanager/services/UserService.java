@@ -7,6 +7,7 @@ import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
 import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
+import org.zup.paulo.comicmanager.exceptions.EmailOrCpfJaCadastradoExcetion;
 import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
 import org.zup.paulo.comicmanager.repositories.UserRepository;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
@@ -49,7 +50,7 @@ public class UserService implements UserServiceAPI {
 
         User userEmailOrCpf = userRepository.findUserByEmailAndCpf(user.getEmail(), user.getCpf());
         if(userEmailOrCpf != null){
-            throw new UserNotFoundException("Cpf ou email ja cadastrado");
+            throw new EmailOrCpfJaCadastradoExcetion("Cpf ou email ja cadastrado");
         }
         return userRepository.save(user);
     }

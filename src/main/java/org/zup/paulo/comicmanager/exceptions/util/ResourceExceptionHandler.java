@@ -60,7 +60,7 @@ public class ResourceExceptionHandler {
         ErrorDetails error = new ErrorDetails();
         error.setStatus(422l);
         error.setTitle("Exite Mail ou CPF ja cadastrado");
-        error.setUrl("http://erros.teste.com/404");
+        error.setUrl("http://erros.teste.com/422");
         error.setTimestamp(System.currentTimeMillis());
         error.setMessage(e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
