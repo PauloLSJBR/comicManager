@@ -25,14 +25,15 @@ public class UserService implements UserServiceAPI {
     @Autowired
     private ExemplaryRepository exemplaryRepository;
 
+    @Override
     @Transactional(readOnly = true)
     public User get(Long id){
 
         try {
-            User user = userRepository.findById(id);
+            User user = userRepository.get(id);
             return user;
         } catch (Exception ex) {
-            throw new UserNotFoundException(String.format("User não existe com esse id: %s ", id));
+            throw new UserNotFoundException(String.format("Usuario não existe com esse id: %s ", id));
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class ComicResult {
 
-    private Long ComicId;
+    private Long comicId;
 
     private String title;
 
@@ -26,7 +26,7 @@ public class ComicResult {
     }
 
     public ComicResult(Comic comic) {
-        this.ComicId = comic.getComicId();
+        this.comicId = comic.getComicId();
         this.title = comic.getTitle();
         this.creators = comic.getCreators();
         this.price = comic.getPrice();
@@ -35,12 +35,11 @@ public class ComicResult {
     }
 
     public Long getComicId() {
-
-        return ComicId;
+        return comicId;
     }
 
     public void setComicId(Long comicId) {
-        ComicId = comicId;
+        this.comicId = comicId;
     }
 
     public String getTitle() {
@@ -107,7 +106,7 @@ public class ComicResult {
     @Override
     public String toString() {
         return "ComicResult{" +
-                "ComicId=" + ComicId +
+                "ComicId=" + comicId +
                 ", título='" + title + '\'' +
                 ", autores='" + creators + '\'' +
                 ", preco=" + price +

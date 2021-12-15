@@ -43,7 +43,7 @@ public class MarvelService {
             }
             comic.setCreators(creators);
         } else {
-            throw new ComicNotFoundException("Creators não presentes na APi Marvel");
+            throw new ComicNotFoundException("Autores não presentes na APi Marvel, não é possivel criar o exemplar ou cadastrar a comic");
         }
         comic.setPrice(result.getPrices().get(0).getPrice());
         if(result.getDescription().isBlank())

@@ -29,7 +29,7 @@ public class ComicService implements ComicServiceAPI {
     @Transactional(readOnly = true)
     public Comic get(Long id){
         try {
-            Comic comic = comicRepository.findById(id);
+            Comic comic = comicRepository.get(id);
             return comic;
         } catch (Exception ex) {
             throw new ComicNotFoundException(String.format("Quadrinho não existe com esse id: %s ", id));

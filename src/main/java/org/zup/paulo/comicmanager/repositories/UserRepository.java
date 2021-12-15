@@ -25,7 +25,7 @@ public class UserRepository {
         return repositoryJPA.getById(id);
     }
 
-    public User get(Long id){return repositoryJPA.findById(id).orElse(null);}
+    public User get(Long id){return repositoryJPA.findById(id).get();}
 
     public User save(User user) {
         return repositoryJPA.save(user);
