@@ -17,6 +17,7 @@ public class Comic implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @NotNull(message = "Identificação é obrigatorio")
     private Long comicId;
 
     @NotBlank(message = "Titulo é obrigatorio")

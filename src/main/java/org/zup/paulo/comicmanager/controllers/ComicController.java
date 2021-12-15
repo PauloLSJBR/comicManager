@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zup.paulo.comicmanager.domain.Comic;
 import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
+import org.zup.paulo.comicmanager.domain.representations.ComicRequest;
 import org.zup.paulo.comicmanager.domain.representations.ComicUpdate;
 import org.zup.paulo.comicmanager.domain.representations.ExemplaryRequest;
 import org.zup.paulo.comicmanager.services.ComicService;
@@ -56,9 +57,9 @@ public class ComicController {
 
     @PostMapping
     public @ResponseBody
-    HttpEntity<Object> save(@RequestBody Comic comic) {
+    HttpEntity<Object> save(@RequestBody ComicRequest comicRequest) {
 
-        comic = service.create(comic);
+        Comic comic = service.createMarvel(comicRequest);
         return ResponseEntity.ok(comic);
     }
 

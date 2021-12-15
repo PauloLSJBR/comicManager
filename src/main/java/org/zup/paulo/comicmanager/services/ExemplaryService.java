@@ -33,9 +33,9 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     @Autowired
     private MarvelService serviceMarvel;
 
+    @Override
     @Transactional
     public Exemplary cadastra(ExemplaryRequest exemplaryRequest) {
-
 
         User user = userRepository.findById(exemplaryRequest.getUserId());
         if(user == null)
@@ -55,7 +55,6 @@ public class ExemplaryService implements ExemplaryServiceAPI {
         }catch (Exception ex){
             throw new ExemplaryNotFoundException(String.format("Erro ao tentar criar um exemplar "));
         }
-
     }
 
         @Transactional(readOnly = true)
