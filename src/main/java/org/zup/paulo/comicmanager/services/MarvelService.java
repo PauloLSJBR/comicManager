@@ -22,10 +22,6 @@ public class MarvelService {
     @Autowired
     private MarvelComicsClient client;
 
-//    public MarvelService(MarvelComicsClient client) {
-//        this.client = client;
-//    }
-
     @Transactional
     public Comic findComic(Long comicId) {
         Long timeStamp = new Date().getTime();
@@ -60,10 +56,6 @@ public class MarvelService {
             comic.setIsbn(result.getIsbn());
 
         return comic;
-
-//        } catch (Exception ex) {
-//            throw new ComicNotFoundException(String.format("Comic não existe na APIMarvel com esse id: %s ", comicId));
-//        }
 
     }
 

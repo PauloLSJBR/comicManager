@@ -46,7 +46,6 @@ public class UserService implements UserServiceAPI {
     @Override
     @Transactional(readOnly = false)
     public User create(User user) {
-
         User userEmailOrCpf = userRepository.findUserByEmailAndCpf(user.getEmail(), user.getCpf());
         if(userEmailOrCpf != null){
             throw new EmailOrCpfJaCadastradoExcetion("Cpf ou email ja cadastrado");
@@ -57,6 +56,10 @@ public class UserService implements UserServiceAPI {
     @Override
     @Transactional(readOnly = false)
     public void update(User user) {
+        User userEmailOrCpf = userRepository.findUserByEmailAndCpf(user.getEmail(), user.getCpf());
+        if(userEmailOrCpf != null){
+            throw new EmailOrCpfJaCadastradoExcetion("Cpf ou email ja cadastrado");
+        }
         userRepository.save(user);
     }
 

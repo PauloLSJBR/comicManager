@@ -51,6 +51,7 @@ public class UserController {
     HttpEntity<User> get(@PathVariable(name = "id") Long id) {
 
         User user = service.get(id);
+
         return ResponseEntity.ok(user);
     }
 

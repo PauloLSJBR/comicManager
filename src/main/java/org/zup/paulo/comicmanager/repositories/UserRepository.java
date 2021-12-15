@@ -38,5 +38,4 @@ public class UserRepository {
     public User findUserByEmailAndCpf(String email, String cpf){
         return repositoryJPA.findUserByEmailAndCpf(email, cpf);
     }
-
 }

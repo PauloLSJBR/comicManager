@@ -22,18 +22,16 @@ public class User implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome é obrigatorio")
     private String nome;
 
-    @NotBlank(message = "E-mail é obrigatorio")
     @Email(message = "E-mail invalido")
     private String email;
 
-    @NotBlank(message = "CPF é obrigatorio")
     @Cpf(message = "CPF Invalido")
     private String cpf;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     @NotNull(message = "Data de nascimento é obrigatoria")
     private Date dataNasc;
 
