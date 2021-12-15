@@ -52,7 +52,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(EmailOrCpfJaCadastradoExcetion.class)
-    public ResponseEntity<ErrorDetails> handlerExemplaryException(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDetails> handlerValidaCPFEMALException(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
         e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
         error.setStatus(400l);
@@ -64,7 +64,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(ISBNNotFoundExeception.class)
-    public ResponseEntity<ErrorDetails> ISBNNotFoundExeception(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDetails> handlerISBNNotFoundExeception(ISBNNotFoundExeception e, HttpServletRequest request) {
         e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
         error.setStatus(400l);
@@ -76,7 +76,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorDetails> handlerExemplaryException(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorDetails> handlerArgumentoNotFoundException(MethodArgumentNotValidException e, HttpServletRequest request) {
 //        e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
         error.setStatus(400l);
