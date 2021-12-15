@@ -7,10 +7,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
-import org.zup.paulo.comicmanager.exceptions.EmailOrCpfJaCadastradoExcetion;
-import org.zup.paulo.comicmanager.exceptions.ExemplaryNotFoundException;
-import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
+import org.zup.paulo.comicmanager.exceptions.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -47,7 +44,7 @@ public class ResourceExceptionHandler {
         e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
         error.setStatus(404l);
-        error.setTitle("Comic exception.");
+        error.setTitle("Exemplar exception.");
         error.setUrl("http://erros.teste.com/404");
         error.setTimestamp(System.currentTimeMillis());
         error.setMessage(e.getMessage());
@@ -58,9 +55,21 @@ public class ResourceExceptionHandler {
     public ResponseEntity<ErrorDetails> handlerExemplaryException(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
         e.printStackTrace();
         ErrorDetails error = new ErrorDetails();
-        error.setStatus(422l);
+        error.setStatus(400l);
         error.setTitle("Exite Mail ou CPF ja cadastrado");
-        error.setUrl("http://erros.teste.com/422");
+        error.setUrl("http://erros.teste.com/400");
+        error.setTimestamp(System.currentTimeMillis());
+        error.setMessage(e.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(ISBNNotFoundExeception.class)
+    public ResponseEntity<ErrorDetails> ISBNNotFoundExeception(EmailOrCpfJaCadastradoExcetion e, HttpServletRequest request) {
+        e.printStackTrace();
+        ErrorDetails error = new ErrorDetails();
+        error.setStatus(400l);
+        error.setTitle("Não Exite ISBN cadastrado na API Marvel");
+        error.setUrl("http://erros.teste.com/400");
         error.setTimestamp(System.currentTimeMillis());
         error.setMessage(e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

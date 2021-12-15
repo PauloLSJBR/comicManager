@@ -8,6 +8,7 @@ import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
 import org.zup.paulo.comicmanager.exceptions.ExemplaryNotFoundException;
+import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
 import org.zup.paulo.comicmanager.repositories.ComicRepository;
 import org.zup.paulo.comicmanager.repositories.UserRepository;
 import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
@@ -35,21 +36,22 @@ public class ExemplaryService implements ExemplaryServiceAPI {
     @Transactional
     public Exemplary cadastra(ExemplaryRequest exemplaryRequest) {
 
+
+        User user = userRepository.findById(exemplaryRequest.getUserId());
+        if(user == null)
+            throw new UserNotFoundException("Usuario não cadastrado, não pode ser criado Exemplar");
+
+        Comic comic = comicRepository.findById(exemplaryRequest.getComicId());
+
+        if (comic == null) {
+            comic = serviceMarvel.findComic(exemplaryRequest.getComicId());
+            comicRepository.save(comic);
+        }
+
         try {
-            User user = userRepository.findById(exemplaryRequest.getUserId());
-
-            Comic comic = comicRepository.findById(exemplaryRequest.getComicId());
-
-            if (comic == null) {
-                comic = serviceMarvel.findComic(exemplaryRequest.getComicId());
-                comicRepository.save(comic);
-            }
-
             Exemplary exemplary = new Exemplary(comic, user);
-
             repositoryJPA.save(exemplary);
             return exemplary;
-
         }catch (Exception ex){
             throw new ExemplaryNotFoundException(String.format("Erro ao tentar criar um exemplar "));
         }

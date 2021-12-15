@@ -23,6 +23,8 @@ public class ExemplaryRepository {
         return repositoryJPA.findAll();
     }
 
+    public List<Exemplary> findByUser(User user){ return repositoryJPA.findByUser(user);}
+
     public Exemplary save(Exemplary exemplary) {
         return repositoryJPA.save(exemplary);
     }

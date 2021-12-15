@@ -72,12 +72,4 @@ public class ComicController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping(value = "/{comicId}")
-    public @ResponseBody
-    HttpEntity<User> remove(@PathVariable(name = "comicId") Long comicId) {
-
-        service.remove(comicId);
-        return ResponseEntity.ok().build();
-    }
-
 }

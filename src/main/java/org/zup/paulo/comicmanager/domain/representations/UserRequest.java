@@ -27,7 +27,6 @@ public class UserRequest implements Serializable {
     private String cpf;
 
     @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT-3")
     @NotNull(message = "Data de nascimento é obrigatoria")
     private Date dataNasc;

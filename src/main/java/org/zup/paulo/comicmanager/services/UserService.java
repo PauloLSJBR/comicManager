@@ -6,11 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zup.paulo.comicmanager.domain.Exemplary;
 import org.zup.paulo.comicmanager.domain.User;
 import org.zup.paulo.comicmanager.domain.builders.UserBuilder;
-import org.zup.paulo.comicmanager.exceptions.ComicNotFoundException;
 import org.zup.paulo.comicmanager.exceptions.EmailOrCpfJaCadastradoExcetion;
 import org.zup.paulo.comicmanager.exceptions.UserNotFoundException;
+import org.zup.paulo.comicmanager.repositories.ExemplaryRepository;
 import org.zup.paulo.comicmanager.repositories.UserRepository;
-import org.zup.paulo.comicmanager.repositories.interfacesJPA.ExemplaryRepositoryJPA;
 import org.zup.paulo.comicmanager.domain.representations.ComicResult;
 import org.zup.paulo.comicmanager.services.interfaces.UserServiceAPI;
 
@@ -24,7 +23,7 @@ public class UserService implements UserServiceAPI {
     private UserRepository userRepository;
 
     @Autowired
-    private ExemplaryRepositoryJPA exemplaryRepository;
+    private ExemplaryRepository exemplaryRepository;
 
     @Transactional(readOnly = true)
     public User get(Long id){
@@ -64,6 +63,11 @@ public class UserService implements UserServiceAPI {
     @Override
     @Transactional(readOnly = false)
     public void remove(Long id) {
+
+        List<Exemplary> exemplaries = exemplaryRepository.findByUser(new UserBuilder().id(id).build());
+        for(Exemplary exemplary: exemplaries) {
+            exemplaryRepository.deleteById(exemplary.getExemplaryId());
+        }
         userRepository.deleteById(id);
     }
 
